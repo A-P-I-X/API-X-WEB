@@ -1,0 +1,822 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#071a35">
+
+  <title>API-X | Estudio Tecnológico Independiente</title>
+  <meta name="description" content="API-X: desarrollo web, menús digitales y soluciones tecnológicas para negocios y proyectos independientes.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"></script>
+
+  <style>
+    :root {
+      --navy:#071a35;
+      --navy2:#0c2547;
+      --blue:#087bda;
+      --bright:#00a8ff;
+      --soft:#eaf5ff;
+      --bg:#f7f9fc;
+      --text:#14243a;
+      --muted:#66758a;
+      --border:#e5ebf2;
+      --green:#16a36a;
+      --font:"DM Sans",sans-serif;
+      --display:"Space Grotesk",sans-serif;
+      --radius:22px;
+      --shadow:0 18px 55px rgba(9,31,59,.08);
+    }
+
+    * {box-sizing:border-box;margin:0;padding:0}
+    html {scroll-behavior:smooth;scroll-padding-top:90px}
+    body {font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+    a {color:inherit;text-decoration:none}
+    button {font:inherit}
+    img {max-width:100%;display:block}
+    a:focus-visible,button:focus-visible {outline:3px solid var(--bright);outline-offset:4px}
+    .container {width:min(1160px,calc(100% - 44px));margin:auto}
+    .section {padding:100px 0}
+    .section-header {max-width:680px;margin-bottom:45px}
+    .eyebrow {display:inline-flex;align-items:center;gap:9px;color:var(--blue);font-size:.76rem;font-weight:800;text-transform:uppercase;letter-spacing:.13em;margin-bottom:17px}
+    .eyebrow:before {content:"";width:22px;height:2px;background:var(--bright);border-radius:10px}
+    h1,h2,h3,h4 {font-family:var(--display);line-height:1.12;letter-spacing:-.045em}
+    .section-title {font-size:clamp(2.1rem,4.5vw,3.6rem);font-weight:700;color:var(--navy)}
+    .section-description {color:var(--muted);margin-top:17px;font-size:1.04rem}
+    .text-gradient {background:linear-gradient(105deg,#00a8ff,#4b8cff 60%,#75c5ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+    /* NAVBAR */
+    .navbar {position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.92);backdrop-filter:blur(18px);border-bottom:1px solid var(--border)}
+    .nav-inner {min-height:76px;display:flex;justify-content:space-between;align-items:center;gap:25px}
+    .brand {display:flex;align-items:center;gap:11px;flex-shrink:0}
+    .brand img {width:43px;height:43px;object-fit:contain}
+    .brand-name {font-family:var(--display);font-size:1.24rem;font-weight:700;color:var(--navy);letter-spacing:-.06em}
+    .brand-name span {color:var(--blue)}
+    .nav-links {display:flex;align-items:center;gap:23px;list-style:none}
+    .nav-links a {font-size:.84rem;color:#526176;font-weight:600;transition:color .16s}
+    .nav-links a:hover {color:var(--blue)}
+    .nav-cta {background:var(--navy);color:white!important;padding:11px 17px;border-radius:10px}
+    .nav-cta:hover {background:var(--blue)}
+    .menu-toggle {display:none;width:43px;height:43px;border:1px solid var(--border);background:white;border-radius:12px;color:var(--navy);cursor:pointer}
+
+    /* BUTTONS */
+    .button {min-height:47px;padding:12px 19px;display:inline-flex;justify-content:center;align-items:center;gap:10px;border:1px solid transparent;border-radius:11px;font-size:.88rem;font-weight:700;cursor:pointer;transition:background .16s,border-color .16s,color .16s,transform .16s}
+    .button:active {transform:scale(.98)}
+    .button-primary {background:var(--bright);color:white}
+    .button-primary:hover {background:#168ce0;transform:translateY(-2px)}
+    .button-outline {border-color:rgba(255,255,255,.25);color:white;background:rgba(255,255,255,.04)}
+    .button-outline:hover {background:rgba(255,255,255,.11)}
+    .button-dark {background:var(--navy);color:white}
+    .button-dark:hover {background:var(--blue)}
+    .button-light {background:var(--soft);color:var(--blue)}
+    .button-light:hover {background:#d8ecff}
+    .button-small {min-height:39px;padding:9px 13px;font-size:.8rem}
+
+    /* HERO */
+    .hero {position:relative;overflow:hidden;color:white;background:radial-gradient(ellipse at 75% 40%,rgba(0,168,255,.18),transparent 38%),linear-gradient(125deg,#06172f,#0b2547 65%,#092d53);min-height:650px;display:flex;align-items:center}
+    .hero:before {content:"";position:absolute;inset:0;opacity:.17;background-image:linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px);background-size:55px 55px;mask-image:linear-gradient(to right,black,transparent 85%);pointer-events:none}
+    .hero-grid {position:relative;z-index:2;display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:30px;padding:80px 0}
+    .hero-label {display:inline-flex;align-items:center;gap:9px;padding:8px 13px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.06);border-radius:100px;color:#c9eaff;font-size:.77rem;font-weight:700;margin-bottom:25px}
+    .status-dot {width:7px;height:7px;border-radius:50%;background:#45d69b;box-shadow:0 0 12px #45d69b}
+    .hero h1 {font-size:clamp(3rem,6.3vw,5.5rem);font-weight:700;line-height:1.02;letter-spacing:-.075em}
+    .hero-description {color:#b9cbe0;font-size:1.1rem;line-height:1.8;margin:26px 0 33px;max-width:550px}
+    .hero-actions {display:flex;flex-wrap:wrap;gap:13px}
+    .hero-note {margin-top:30px;color:#8fa7c3;font-size:.82rem}
+    .hero-visual {min-height:400px;position:relative;display:grid;place-items:center}
+    model-viewer {width:100%;height:430px;background:transparent;--poster-color:transparent;outline:none}
+    .earth-caption {position:absolute;bottom:5px;right:8%;padding:10px 14px;border:1px solid rgba(255,255,255,.12);border-radius:12px;background:rgba(255,255,255,.06);backdrop-filter:blur(12px);color:#d5e7fa;font-size:.75rem}
+
+    /* TRUST */
+    .trust-strip {background:white;border-bottom:1px solid var(--border)}
+    .trust-inner {min-height:100px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:22px}
+    .trust-item {display:flex;align-items:center;gap:12px;color:var(--muted);font-size:.88rem;font-weight:600}
+    .trust-item i {color:var(--blue);font-size:1.15rem}
+
+    /* SERVICES */
+    .services-grid {display:grid;grid-template-columns:repeat(3,1fr);gap:19px}
+    .service-card {background:white;border:1px solid var(--border);border-radius:var(--radius);padding:29px;transition:border-color .18s,box-shadow .18s,transform .18s}
+    .service-card:hover {border-color:#b9ddfa;box-shadow:var(--shadow);transform:translateY(-4px)}
+    .service-icon {width:51px;height:51px;border-radius:15px;display:grid;place-items:center;color:var(--blue);background:var(--soft);font-size:1.25rem;margin-bottom:23px}
+    .service-card h3 {font-size:1.28rem;margin-bottom:12px;color:var(--navy)}
+    .service-card p {font-size:.92rem;color:var(--muted);line-height:1.75}
+    .service-link {display:inline-flex;align-items:center;gap:8px;color:var(--blue);font-size:.85rem;font-weight:700;margin-top:22px}
+    .service-link i {transition:transform .16s}
+    .service-link:hover i {transform:translateX(4px)}
+
+    /* ABOUT */
+    .about-section,.pricing-section,.contact-section {background:white}
+    .about-grid {display:grid;grid-template-columns:.9fr 1.1fr;gap:70px;align-items:center}
+    .about-visual {position:relative;min-height:380px;border-radius:28px;overflow:hidden;background:radial-gradient(circle at 70% 35%,rgba(0,168,255,.28),transparent 35%),linear-gradient(145deg,#071a35,#0e3764);display:grid;place-items:center}
+    .about-logo {width:130px;height:130px;object-fit:contain;z-index:1}
+    .orbit {position:absolute;width:270px;height:270px;border:1px solid rgba(0,168,255,.35);border-radius:50%}
+    .orbit-two {width:360px;height:360px;border-color:rgba(255,255,255,.11)}
+    .about-content h2 {font-size:clamp(2.1rem,4vw,3.2rem);color:var(--navy);margin-bottom:22px}
+    .about-content p {color:var(--muted);margin-bottom:17px;line-height:1.85}
+    .about-points {display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:27px}
+    .about-point {display:flex;align-items:center;gap:10px;font-weight:700;font-size:.86rem;color:var(--navy)}
+    .about-point i {color:var(--green)}
+
+    /* PORTFOLIO */
+    .portfolio-grid {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+    .project-card {min-width:0;background:white;border:1px solid var(--border);border-radius:21px;overflow:hidden;transition:transform .18s,box-shadow .18s}
+    .project-card:hover {transform:translateY(-4px);box-shadow:var(--shadow)}
+    .project-preview {height:265px;position:relative;overflow:hidden;background:#eaf1f8}
+    .project-preview iframe {width:200%;height:530px;border:0;transform:scale(.5);transform-origin:top left;background:white;pointer-events:none}
+    .preview-label {position:absolute;top:15px;left:15px;z-index:2;padding:7px 11px;background:rgba(7,26,53,.88);color:white;border-radius:8px;font-size:.72rem;font-weight:700}
+    .project-overlay {position:absolute;inset:0}
+    .project-info {padding:25px}
+    .project-info h3 {color:var(--navy);font-size:1.35rem;margin-bottom:9px}
+    .project-info p {color:var(--muted);font-size:.91rem;line-height:1.7;margin-bottom:20px}
+    .project-actions {display:flex;flex-wrap:wrap;gap:10px}
+    .portfolio-note {margin-top:22px;color:var(--muted);font-size:.81rem;line-height:1.7}
+
+    /* PRICING */
+    .pricing-grid {display:grid;grid-template-columns:1.2fr .8fr;gap:23px;align-items:stretch}
+    .price-card {padding:34px;background:var(--bg);border:1px solid var(--border);border-radius:23px}
+    .price-card.featured {background:var(--navy);color:white;border-color:var(--navy);position:relative;overflow:hidden}
+    .price-card.featured:after {content:"";position:absolute;width:220px;height:220px;border:1px solid rgba(0,168,255,.22);border-radius:50%;top:-105px;right:-75px;box-shadow:0 0 0 30px rgba(0,168,255,.035),0 0 0 60px rgba(0,168,255,.025)}
+    .price-tag {font-size:.77rem;text-transform:uppercase;letter-spacing:.12em;font-weight:800;color:var(--blue);margin-bottom:19px}
+    .featured .price-tag {color:#71c9ff}
+    .price-card h3 {font-size:1.6rem;margin-bottom:12px;color:var(--navy)}
+    .featured h3 {color:white}
+    .price-description {color:var(--muted);font-size:.92rem;line-height:1.7}
+    .featured .price-description {color:#b8c9dc}
+    .price {font-family:var(--display);font-size:clamp(2.4rem,5vw,3.5rem);font-weight:700;letter-spacing:-.06em;margin:24px 0 4px;font-variant-numeric:tabular-nums}
+    .price-period {color:var(--muted);font-size:.82rem}
+    .featured .price-period {color:#a8bdd3}
+    .feature-list {list-style:none;margin:27px 0;display:grid;gap:13px}
+    .feature-list li {display:flex;align-items:flex-start;gap:11px;font-size:.9rem;color:var(--muted)}
+    .featured .feature-list li {color:#d4e1ef}
+    .feature-list i {color:var(--green);margin-top:4px}
+    .featured .feature-list i {color:#60d9a4}
+    .price-note {color:var(--muted);font-size:.81rem;margin-top:19px;line-height:1.7}
+    .featured .price-note {color:#a8bdd3}
+
+    /* MAINTENANCE */
+    .maintenance-box {display:grid;grid-template-columns:1fr auto;gap:35px;align-items:center;padding:37px;border:1px solid #cce6fa;border-radius:22px;background:linear-gradient(115deg,#f0f8ff,#fff)}
+    .maintenance-box h3 {color:var(--navy);font-size:1.65rem;margin-bottom:12px}
+    .maintenance-box p {color:var(--muted);max-width:690px;line-height:1.8;font-size:.92rem}
+    .maintenance-price {text-align:right;white-space:nowrap}
+    .maintenance-price strong {display:block;font-family:var(--display);font-size:2.25rem;letter-spacing:-.06em;color:var(--blue)}
+    .maintenance-price span {color:var(--muted);font-size:.78rem}
+
+    /* COLLABORATION */
+    .collab-section {background:var(--navy);color:white;position:relative;overflow:hidden}
+    .collab-section:before {content:"";position:absolute;width:520px;height:520px;border:1px solid rgba(0,168,255,.13);border-radius:50%;right:-190px;top:-190px;box-shadow:0 0 0 65px rgba(0,168,255,.025),0 0 0 130px rgba(0,168,255,.02)}
+    .collab-section .section-title {color:white}
+    .collab-section .section-description {color:#b3c7dd}
+    .collab-grid {display:grid;grid-template-columns:repeat(4,1fr);gap:15px;position:relative;z-index:1}
+    .collab-card {padding:25px 21px;border:1px solid rgba(255,255,255,.13);border-radius:17px;background:rgba(255,255,255,.045);transition:background .18s,border-color .18s}
+    .collab-card:hover {background:rgba(255,255,255,.09);border-color:rgba(0,168,255,.5)}
+    .collab-card i {font-size:1.35rem;color:#62c8ff;margin-bottom:20px}
+    .collab-card h3 {font-size:1.08rem;margin-bottom:10px}
+    .collab-card p {color:#b1c4d8;font-size:.84rem;line-height:1.7}
+    .collab-process {position:relative;z-index:1;margin-top:30px;padding:27px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:17px}
+    .collab-process h3 {font-size:1.2rem;margin-bottom:13px}
+    .collab-process p {color:#b7cbe0;font-size:.9rem;line-height:1.8}
+    .collab-disclaimer {position:relative;z-index:1;margin-top:17px;color:#8fa9c4;font-size:.78rem;line-height:1.7}
+
+    /* COMMUNITY */
+    .community-box {display:grid;grid-template-columns:1fr auto;align-items:center;gap:35px;padding:40px;border-radius:23px;background:var(--soft);border:1px solid #d3eafa}
+    .community-box h3 {color:var(--navy);font-size:1.75rem;margin-bottom:12px}
+    .community-box p {max-width:690px;color:var(--muted);line-height:1.8;font-size:.92rem}
+    .community-icon {width:95px;height:95px;border-radius:24px;background:white;display:grid;place-items:center;color:var(--blue);font-size:2.5rem;box-shadow:0 10px 30px rgba(0,50,100,.07)}
+
+    /* CONTACT */
+    .contact-panel {background:radial-gradient(circle at 90% 10%,rgba(0,168,255,.16),transparent 35%),linear-gradient(125deg,#071a35,#0b2d54);color:white;border-radius:25px;padding:54px;display:grid;grid-template-columns:1fr .8fr;gap:50px;align-items:center}
+    .contact-panel h2 {font-size:clamp(2.1rem,4vw,3.4rem);margin-bottom:17px}
+    .contact-panel p {color:#b8cbe0;max-width:520px;line-height:1.8}
+    .contact-details {display:grid;gap:15px}
+    .contact-detail {display:flex;align-items:center;gap:14px;padding:15px;background:rgba(255,255,255,.065);border:1px solid rgba(255,255,255,.1);border-radius:12px}
+    .contact-detail i {width:21px;color:#62c8ff;font-size:1.1rem}
+    .contact-detail span {display:block;color:#9eb6cf;font-size:.72rem}
+    .contact-detail strong {font-size:.91rem;font-weight:600;overflow-wrap:anywhere}
+    .contact-detail a:hover strong {color:#75cfff}
+    .social-links {display:flex;flex-wrap:wrap;gap:10px;margin-top:35px}
+    .social-links a {width:42px;height:42px;display:grid;place-items:center;color:white;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:11px;transition:background .16s,transform .16s}
+    .social-links a:hover {background:var(--blue);transform:translateY(-2px)}
+
+    /* FOOTER */
+    footer {background:#051327;color:#9bb0c7;padding:30px 0}
+    .footer-inner {display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+    .footer-brand {display:flex;align-items:center;gap:10px;color:white;font-family:var(--display);font-weight:700}
+    .footer-brand img {width:34px;height:34px;object-fit:contain}
+    .footer-copy,.footer-links {font-size:.79rem}
+    .footer-links {display:flex;gap:19px;flex-wrap:wrap}
+    .footer-links a:hover {color:white}
+
+    .whatsapp-float {position:fixed;z-index:900;right:23px;bottom:23px;width:57px;height:57px;border-radius:50%;display:grid;place-items:center;background:#20bd70;color:white;font-size:1.65rem;box-shadow:0 8px 28px rgba(32,189,112,.3);transition:transform .16s,background .16s}
+    .whatsapp-float:hover {background:#159e5b;transform:translateY(-3px)}
+
+    /* REVEAL */
+    .reveal {opacity:0;transform:translateY(8px);transition:opacity 220ms cubic-bezier(.23,1,.32,1),transform 220ms cubic-bezier(.23,1,.32,1)}
+    .reveal.visible {opacity:1;transform:translateY(0)}
+
+    /* RESPONSIVE */
+    @media(max-width:1000px) {
+      .nav-links {gap:13px}
+      .nav-links a {font-size:.77rem}
+      .hero-grid {grid-template-columns:1fr .8fr}
+      .collab-grid {grid-template-columns:repeat(2,1fr)}
+    }
+
+    @media(max-width:780px) {
+      .section {padding:75px 0}
+      .nav-inner {min-height:69px}
+      .menu-toggle {display:grid;place-items:center}
+      .nav-links {position:absolute;left:0;right:0;top:69px;display:none;flex-direction:column;align-items:stretch;gap:0;background:white;border-bottom:1px solid var(--border);padding:10px 22px 20px;box-shadow:0 15px 25px rgba(0,0,0,.05)}
+      .nav-links.open {display:flex}
+      .nav-links a {display:block;padding:13px 8px;font-size:.92rem}
+      .nav-cta {margin-top:8px;text-align:center}
+      .hero {min-height:auto}
+      .hero-grid {grid-template-columns:1fr;padding:70px 0 40px}
+      .hero-visual {min-height:270px}
+      model-viewer {height:310px;max-width:430px}
+      .earth-caption {bottom:0;right:10%}
+      .trust-inner {justify-content:flex-start;padding:25px 0;gap:20px 28px}
+      .services-grid {grid-template-columns:1fr 1fr}
+      .about-grid {grid-template-columns:1fr;gap:38px}
+      .about-visual {min-height:300px}
+      .pricing-grid {grid-template-columns:1fr}
+      .maintenance-box,.community-box {grid-template-columns:1fr}
+      .maintenance-price {text-align:left}
+      .community-icon {display:none}
+      .contact-panel {grid-template-columns:1fr;padding:35px 27px;gap:30px}
+    }
+
+    @media(max-width:520px) {
+      .container {width:min(100% - 32px,1160px)}
+      .hero h1 {font-size:clamp(2.75rem,12vw,4rem)}
+      .hero-description {font-size:1rem}
+      .hero-actions {flex-direction:column}
+      .hero-actions .button {width:100%}
+      .services-grid,.portfolio-grid,.collab-grid {grid-template-columns:1fr}
+      .about-points {grid-template-columns:1fr}
+      .project-preview {height:215px}
+      .project-preview iframe {height:430px}
+      .price-card {padding:27px 23px}
+      .maintenance-box,.community-box {padding:27px 23px}
+      .contact-panel {padding:31px 22px}
+      .footer-inner {flex-direction:column;align-items:flex-start}
+      .whatsapp-float {width:52px;height:52px;right:16px;bottom:16px}
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+      html {scroll-behavior:auto}
+      *,*::before,*::after {animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+      .reveal {opacity:1;transform:none}
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVEGACIÓN -->
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a class="brand" href="#inicio" aria-label="API-X, inicio">
+        <img src="https://a-p-i-x.github.io/API-X-COMUNITY/imagen_2025-12-19_000631778.png" alt="Logo oficial de API-X">
+        <span class="brand-name">API<span>-X</span></span>
+      </a>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <nav>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#servicios">Servicios</a></li>
+          <li><a href="#proyectos">Proyectos</a></li>
+          <li><a href="#precios">Precios</a></li>
+          <li><a href="#colabora">Colabora</a></li>
+          <li><a href="#comunidad">Comunidad</a></li>
+          <li><a class="nav-cta" href="#contacto">Contactar <i class="fa-solid fa-arrow-right"></i></a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="hero" id="inicio">
+      <div class="container hero-grid">
+        <div>
+          <div class="hero-label">
+            <span class="status-dot"></span>
+            Estudio tecnológico independiente
+          </div>
+
+          <h1>
+            Ideas que se convierten en
+            <span class="text-gradient">soluciones digitales.</span>
+          </h1>
+
+          <p class="hero-description">
+            En API-X desarrollamos experiencias web y soluciones
+            tecnológicas para negocios, emprendedores y proyectos
+            independientes. Transformamos ideas en herramientas útiles.
+          </p>
+
+          <div class="hero-actions">
+            <a class="button button-primary" href="https://wa.me/573206465606?text=Hola%20API-X%2C%20quiero%20conocer%20sus%20servicios.">
+              Hablemos de tu proyecto <i class="fa-solid fa-arrow-right"></i>
+            </a>
+            <a class="button button-outline" href="#proyectos">
+              Explorar proyectos <i class="fa-solid fa-arrow-down"></i>
+            </a>
+          </div>
+
+          <p class="hero-note">Desarrollo independiente. Atención directa. Propuestas a medida.</p>
+        </div>
+
+        <div class="hero-visual">
+          <model-viewer
+            src="tierra-noche.glb"
+            alt="Modelo tridimensional de la Tierra"
+            auto-rotate
+            rotation-per-second="12deg"
+            camera-controls
+            disable-zoom
+            interaction-prompt="none"
+            loading="eager"
+            shadow-intensity="0.4"
+            exposure="1.1">
+          </model-viewer>
+          <div class="earth-caption">
+            <i class="fa-solid fa-earth-americas"></i>
+            Tecnología sin fronteras
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VALORES -->
+    <section class="trust-strip">
+      <div class="container trust-inner">
+        <div class="trust-item"><i class="fa-solid fa-code"></i> Desarrollo web</div>
+        <div class="trust-item"><i class="fa-solid fa-mobile-screen"></i> Diseño adaptable</div>
+        <div class="trust-item"><i class="fa-solid fa-handshake"></i> Colaboraciones abiertas</div>
+        <div class="trust-item"><i class="fa-solid fa-comments"></i> Atención directa</div>
+      </div>
+    </section>
+
+    <!-- SERVICIOS -->
+    <section class="section" id="servicios">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="eyebrow">Qué hacemos</span>
+          <h2 class="section-title">Soluciones pensadas para <span class="text-gradient">hacer crecer tus ideas.</span></h2>
+          <p class="section-description">
+            Creamos herramientas digitales con un enfoque práctico:
+            diseño claro, funcionamiento sencillo y una experiencia
+            adecuada para las personas que las utilizan.
+          </p>
+        </div>
+
+        <div class="services-grid">
+          <article class="service-card reveal">
+            <div class="service-icon"><i class="fa-solid fa-utensils"></i></div>
+            <h3>Menús digitales</h3>
+            <p>Menús web para restaurantes y negocios gastronómicos. Incluyen categorías, fotografías, descripciones, precios y contacto directo por WhatsApp.</p>
+            <a class="service-link" href="https://wa.me/573206465606?text=Hola%20API-X%2C%20me%20interesa%20un%20men%C3%BA%20digital.">Solicitar información <i class="fa-solid fa-arrow-right"></i></a>
+          </article>
+
+          <article class="service-card reveal">
+            <div class="service-icon"><i class="fa-solid fa-globe"></i></div>
+            <h3>Desarrollo web</h3>
+            <p>Desarrollo de páginas y proyectos web según las necesidades de cada cliente. El alcance y el presupuesto se definen antes de comenzar.</p>
+            <a class="service-link" href="https://wa.me/573206465606?text=Hola%20API-X%2C%20quiero%20cotizar%20un%20proyecto%20web.">Cotizar proyecto <i class="fa-solid fa-arrow-right"></i></a>
+          </article>
+
+          <article class="service-card reveal">
+            <div class="service-icon"><i class="fa-solid fa-lightbulb"></i></div>
+            <h3>Proyectos tecnológicos</h3>
+            <p>Exploramos ideas y colaboraciones en tecnología, programación y soluciones digitales. Cada propuesta se evalúa individualmente.</p>
+            <a class="service-link" href="#colabora">Explorar colaboraciones <i class="fa-solid fa-arrow-right"></i></a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOBRE API-X -->
+    <section class="section about-section" id="nosotros">
+      <div class="container about-grid">
+        <div class="about-visual reveal">
+          <div class="orbit"></div>
+          <div class="orbit orbit-two"></div>
+          <img class="about-logo" src="https://a-p-i-x.github.io/API-X-COMUNITY/imagen_2025-12-19_000631778.png" alt="API-X">
+        </div>
+
+        <div class="about-content reveal">
+          <span class="eyebrow">Nuestra identidad</span>
+          <h2>Independientes por naturaleza. <span class="text-gradient">Tecnológicos por pasión.</span></h2>
+          <p>API-X es un estudio tecnológico independiente enfocado en crear proyectos digitales y desarrollar soluciones prácticas para personas y negocios.</p>
+          <p>Trabajamos mediante proyectos y colaboraciones. Nos interesa construir soluciones útiles, aprender continuamente y convertir buenas ideas en resultados.</p>
+
+          <div class="about-points">
+            <div class="about-point"><i class="fa-solid fa-circle-check"></i> Atención directa</div>
+            <div class="about-point"><i class="fa-solid fa-circle-check"></i> Propuestas claras</div>
+            <div class="about-point"><i class="fa-solid fa-circle-check"></i> Proyectos a medida</div>
+            <div class="about-point"><i class="fa-solid fa-circle-check"></i> Colaboración abierta</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTAFOLIO Y DEMOSTRACIONES -->
+    <section class="section" id="proyectos">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="eyebrow">Proyectos y demostraciones</span>
+          <h2 class="section-title">Mira algunas de nuestras <span class="text-gradient">experiencias digitales.</span></h2>
+          <p class="section-description">
+            Explora nuestros proyectos, plataformas y demostraciones.
+            Cada uno tiene su propio propósito dentro del ecosistema API-X.
+          </p>
+        </div>
+
+        <div class="portfolio-grid">
+
+          <!-- PROYECTO 1: SABORX -->
+          <article class="project-card reveal">
+            <div class="project-preview">
+              <span class="preview-label"><i class="fa-solid fa-display"></i> DEMOSTRACIÓN WEB</span>
+              <iframe src="https://a-p-i-x.github.io/SaborX-Ejemplo/" title="Vista previa de SaborX" loading="lazy" tabindex="-1"></iframe>
+              <a class="project-overlay" href="https://a-p-i-x.github.io/SaborX-Ejemplo/" target="_blank" rel="noopener" aria-label="Abrir demostración SaborX"></a>
+            </div>
+            <div class="project-info">
+              <h3>SaborX</h3>
+              <p>Ejemplo de menú digital para restaurantes. Una demostración de cómo presentar productos, categorías, precios y contacto mediante una página web.</p>
+              <div class="project-actions">
+                <a class="button button-dark button-small" href="https://a-p-i-x.github.io/SaborX-Ejemplo/" target="_blank" rel="noopener">Ver proyecto <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                <a class="button button-light button-small" href="https://wa.me/573206465606?text=Hola%20API-X%2C%20quiero%20un%20men%C3%BA%20como%20SaborX.">Solicitar uno</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- PROYECTO 2: API-X WEB DEVELOPMENT -->
+          <article class="project-card reveal">
+            <div class="project-preview">
+              <span class="preview-label"><i class="fa-solid fa-code"></i> DESARROLLO WEB</span>
+              <iframe
+                src="https://a-p-i-x.github.io/API-X-WEB-DEVELOPMENT/"
+                title="Vista previa de API-X Web Development"
+                loading="lazy"
+                tabindex="-1">
+              </iframe>
+              <a class="project-overlay"
+                 href="https://a-p-i-x.github.io/API-X-WEB-DEVELOPMENT/"
+                 target="_blank"
+                 rel="noopener"
+                 aria-label="Abrir API-X Web Development">
+              </a>
+            </div>
+
+            <div class="project-info">
+              <h3>API-X &lt;/Web_Development&gt;</h3>
+              <p>
+                Espacio dedicado al desarrollo web dentro del ecosistema
+                API-X. Explora esta plataforma para conocer su propuesta,
+                herramientas y contenido.
+              </p>
+              <div class="project-actions">
+                <a class="button button-dark button-small"
+                   href="https://a-p-i-x.github.io/API-X-WEB-DEVELOPMENT/"
+                   target="_blank" rel="noopener">
+                  Visitar plataforma
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- PROYECTO 3: COMMUNITY -->
+          <article class="project-card reveal">
+            <div class="project-preview">
+              <span class="preview-label"><i class="fa-solid fa-users"></i> COMUNIDAD</span>
+              <iframe src="https://a-p-i-x.github.io/API-X-COMUNITY/" title="Vista previa de API-X Community" loading="lazy" tabindex="-1"></iframe>
+              <a class="project-overlay" href="https://a-p-i-x.github.io/API-X-COMUNITY/" target="_blank" rel="noopener" aria-label="Abrir comunidad API-X"></a>
+            </div>
+            <div class="project-info">
+              <h3>API-X Community</h3>
+              <p>Espacio independiente para aficionados y entusiastas de la programación, electrónica, diseño y desarrollo.</p>
+              <div class="project-actions">
+                <a class="button button-dark button-small" href="https://a-p-i-x.github.io/API-X-COMUNITY/" target="_blank" rel="noopener">Visitar comunidad <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+        <p class="portfolio-note">
+          Las vistas previas dependen de que cada sitio permita mostrarse
+          dentro de esta página. Si alguna no aparece, utiliza su botón
+          para abrirla directamente.
+        </p>
+      </div>
+    </section>
+
+    <!-- PRECIOS -->
+    <section class="section pricing-section" id="precios">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="eyebrow">Inversión transparente</span>
+          <h2 class="section-title">Precios claros. <span class="text-gradient">Sin sorpresas.</span></h2>
+          <p class="section-description">Conoce el precio de nuestro servicio de menú digital. Para otros desarrollos, elaboramos una cotización según el alcance del proyecto.</p>
+        </div>
+
+        <div class="pricing-grid">
+          <article class="price-card featured reveal">
+            <div class="price-tag">Servicio principal</div>
+            <h3>Menú digital web</h3>
+            <p class="price-description">Una página web adaptable para presentar el menú de tu restaurante o negocio gastronómico.</p>
+            <div class="price">$150.000</div>
+            <div class="price-period">COP · Pago único</div>
+
+            <ul class="feature-list">
+              <li><i class="fa-solid fa-check"></i> Diseño adaptable a móviles y computadores.</li>
+              <li><i class="fa-solid fa-check"></i> Categorías y organización de productos.</li>
+              <li><i class="fa-solid fa-check"></i> Fotografías y descripciones.</li>
+              <li><i class="fa-solid fa-check"></i> Precios de los productos.</li>
+              <li><i class="fa-solid fa-check"></i> Botones de contacto por WhatsApp.</li>
+              <li><i class="fa-solid fa-check"></i> Mensaje de WhatsApp preparado para revisar y enviar.</li>
+            </ul>
+
+            <a class="button button-primary" href="https://wa.me/573206465606?text=Hola%20API-X%2C%20quiero%20contratar%20un%20men%C3%BA%20digital%20de%20%24150.000.">Contratar servicio <i class="fa-solid fa-arrow-right"></i></a>
+            <p class="price-note">El servicio corresponde a una presentación digital del menú. No incluye carrito de compras, gestión automatizada de pedidos ni sistema administrativo.</p>
+          </article>
+
+          <article class="price-card reveal">
+            <div class="price-tag">Otros desarrollos</div>
+            <h3>Proyectos personalizados</h3>
+            <p class="price-description">¿Tienes una idea que necesita una solución diferente? Podemos evaluar sus características y elaborar una propuesta.</p>
+            <div class="price">A medida</div>
+            <div class="price-period">Cotización según el proyecto</div>
+
+            <ul class="feature-list">
+              <li><i class="fa-solid fa-check"></i> Evaluación de la idea.</li>
+              <li><i class="fa-solid fa-check"></i> Definición del alcance.</li>
+              <li><i class="fa-solid fa-check"></i> Propuesta de desarrollo.</li>
+              <li><i class="fa-solid fa-check"></i> Presupuesto acordado previamente.</li>
+            </ul>
+
+            <a class="button button-dark" href="https://wa.me/573206465606?text=Hola%20API-X%2C%20tengo%20una%20idea%20para%20un%20proyecto%20personalizado.">Cotizar mi idea <i class="fa-solid fa-arrow-right"></i></a>
+            <p class="price-note">Cada proyecto se analiza individualmente. No se publican tarifas fijas para trabajos cuyo alcance todavía no se ha definido.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- MANTENIMIENTO -->
+    <section class="section" id="mantenimiento">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="eyebrow">Después de la entrega</span>
+          <h2 class="section-title">Tu página también puede <span class="text-gradient">seguir evolucionando.</span></h2>
+        </div>
+
+        <div class="maintenance-box reveal">
+          <div>
+            <h3>Mantenimiento y actualizaciones</h3>
+            <p>
+              Si necesitas actualizar fotografías, descripciones, textos
+              o precios de tu menú digital, puedes solicitar una
+              intervención de mantenimiento. Los rediseños,
+              reconstrucciones o cambios importantes se cotizan
+              por separado.
+            </p>
+          </div>
+          <div class="maintenance-price">
+            <strong>$50.000</strong>
+            <span>COP por intervención</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COLABORACIONES -->
+    <section class="section collab-section" id="colabora">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="eyebrow" style="color:#70caff">Programa abierto API-X</span>
+          <h2 class="section-title">Las oportunidades también <span class="text-gradient">se construyen en equipo.</span></h2>
+          <p class="section-description">
+            No necesitas ser una empresa, desarrollador profesional
+            ni cliente de API-X para participar. Nuestro programa
+            está abierto a cualquier persona interesada en recomendar,
+            colaborar o crear oportunidades.
+          </p>
+        </div>
+
+        <div class="collab-grid">
+          <article class="collab-card reveal">
+            <i class="fa-solid fa-user-plus"></i>
+            <h3>Referidores</h3>
+            <p>Recomienda nuestros servicios a personas o negocios interesados y participa en el programa de comisiones.</p>
+          </article>
+          <article class="collab-card reveal">
+            <i class="fa-solid fa-code"></i>
+            <h3>Colaboradores</h3>
+            <p>Participa en proyectos tecnológicos y trabajos conjuntos según tus conocimientos y habilidades.</p>
+          </article>
+          <article class="collab-card reveal">
+            <i class="fa-solid fa-building"></i>
+            <h3>Empresas y aliados</h3>
+            <p>Propón acuerdos comerciales, alianzas estratégicas o proyectos compartidos.</p>
+          </article>
+          <article class="collab-card reveal">
+            <i class="fa-solid fa-users"></i>
+            <h3>Cualquier persona</h3>
+            <p>Clientes, emprendedores, estudiantes, conocidos o personas externas también pueden participar.</p>
+          </article>
+        </div>
+
+        <div class="collab-process reveal">
+          <h3>¿Cómo funciona?</h3>
+          <p>
+            1. Te comunicas con API-X y nos cuentas tu propuesta.<br>
+            2. Definimos el tipo de participación y las condiciones.<br>
+            3. Acordamos por escrito la comisión o remuneración,
+            cuando corresponda, antes de comenzar.<br>
+            4. Se realiza el seguimiento del proyecto o referido
+            y se cumplen las condiciones acordadas.
+          </p>
+        </div>
+
+        <p class="collab-disclaimer">
+          Las comisiones no tienen un porcentaje universal:
+          se acuerdan previamente según el servicio, el valor
+          de la operación y la participación de cada persona.
+          Una recomendación no garantiza automáticamente una comisión.
+          Las condiciones deben quedar claras antes de iniciar.
+        </p>
+
+        <div style="margin-top:27px;position:relative;z-index:1">
+          <a class="button button-primary" href="https://wa.me/573206465606?text=Hola%20API-X%2C%20quiero%20participar%20en%20el%20programa%20de%20referidos%20y%20colaboradores.">
+            Quiero colaborar con API-X <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMUNIDAD -->
+    <section class="section" id="comunidad">
+      <div class="container">
+        <div class="community-box reveal">
+          <div>
+            <span class="eyebrow">Un espacio diferente</span>
+            <h3>API-X Community</h3>
+            <p>
+              Nuestra comunidad conserva su esencia independiente:
+              un espacio para aficionados y entusiastas de la
+              programación, electrónica, diseño y tecnología.
+              Es un proyecto separado de los servicios comerciales
+              de API-X, pero comparte nuestra curiosidad por crear,
+              experimentar y aprender.
+            </p>
+
+            <div class="project-actions" style="margin-top:22px">
+              <a class="button button-dark" href="https://a-p-i-x.github.io/API-X-COMUNITY/" target="_blank" rel="noopener">Visitar comunidad <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+              <a class="button button-light" href="https://discord.gg/akhXkvy8uB" target="_blank" rel="noopener">Unirse a Discord</a>
+            </div>
+          </div>
+          <div class="community-icon"><i class="fa-solid fa-people-group"></i></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section class="section contact-section" id="contacto">
+      <div class="container">
+        <div class="contact-panel reveal">
+          <div>
+            <span class="eyebrow" style="color:#70caff">Hablemos</span>
+            <h2>Tu próxima idea puede comenzar aquí.</h2>
+            <p>Cuéntanos qué necesitas, qué quieres construir o cómo te gustaría colaborar. La atención es directa y podemos conversar sobre tu propuesta.</p>
+
+            <div class="social-links">
+              <a href="https://whatsapp.com/channel/0029VbBt6SdLdQejNjTghn0z" target="_blank" rel="noopener" aria-label="Canal de WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+              <a href="https://discord.gg/akhXkvy8uB" target="_blank" rel="noopener" aria-label="Discord"><i class="fa-brands fa-discord"></i></a>
+              <a href="https://www.tiktok.com/@joshuadavidgc" target="_blank" rel="noopener" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+              <a href="https://www.instagram.com/joshda_api_x/" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+              <a href="https://x.com/JoshDa_API_X" target="_blank" rel="noopener" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+              <a href="https://www.youtube.com/@JoshDa_API_X" target="_blank" rel="noopener" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+              <a href="https://www.facebook.com/share/1GSdQmF7oX/" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            </div>
+          </div>
+
+          <div class="contact-details">
+            <a class="contact-detail" href="https://wa.me/573206465606" target="_blank" rel="noopener">
+              <i class="fa-brands fa-whatsapp"></i>
+              <div><span>WhatsApp Business</span><strong>+57 320 646 5606</strong></div>
+            </a>
+            <a class="contact-detail" href="mailto:joshda.api.x@gmail.com">
+              <i class="fa-solid fa-envelope"></i>
+              <div><span>Correo electrónico</span><strong>joshda.api.x@gmail.com</strong></div>
+            </a>
+            <a class="contact-detail" href="https://a-p-i-x.github.io/API-X-COMUNITY/" target="_blank" rel="noopener">
+              <i class="fa-solid fa-globe"></i>
+              <div><span>Página web</span><strong>API-X Community</strong></div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container footer-inner">
+      <a class="footer-brand" href="#inicio">
+        <img src="https://a-p-i-x.github.io/API-X-COMUNITY/imagen_2025-12-19_000631778.png" alt="">
+        API-X
+      </a>
+
+      <p class="footer-copy">© <span id="year"></span> API-X. Estudio tecnológico independiente.</p>
+
+      <div class="footer-links">
+        <a href="#servicios">Servicios</a>
+        <a href="#precios">Precios</a>
+        <a href="#colabora">Colabora</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WHATSAPP FLOTANTE -->
+  <a class="whatsapp-float"
+     href="https://wa.me/573206465606?text=Hola%20API-X%2C%20quiero%20informaci%C3%B3n%20sobre%20sus%20servicios."
+     target="_blank"
+     rel="noopener"
+     aria-label="Contactar por WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+
+  <script>
+    // Año automático
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Menú móvil
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("navLinks");
+    const menuIcon = menuToggle.querySelector("i");
+
+    function closeMenu() {
+      navLinks.classList.remove("open");
+      menuToggle.setAttribute("aria-expanded", "false");
+      menuToggle.setAttribute("aria-label", "Abrir menú");
+      menuIcon.className = "fa-solid fa-bars";
+    }
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.setAttribute("aria-label", isOpen ? "Cerrar menú" : "Abrir menú");
+
+      menuIcon.className = isOpen
+        ? "fa-solid fa-xmark"
+        : "fa-solid fa-bars";
+    });
+
+    navLinks.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", closeMenu);
+    });
+
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    // Animaciones de entrada discretas
+    const revealElements = document.querySelectorAll(".reveal");
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if ("IntersectionObserver" in window && !reduceMotion) {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            obs.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.12,
+        rootMargin: "0px 0px -30px 0px"
+      });
+
+      revealElements.forEach(element => observer.observe(element));
+    } else {
+      revealElements.forEach(element => element.classList.add("visible"));
+    }
+  </script>
+
+</body>
+</html>
